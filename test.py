@@ -49,10 +49,10 @@ netG = _netG(opt)
 netG.load_state_dict(torch.load(opt.netG,map_location=lambda storage, location: storage)['state_dict'])
 netG.eval()
 
-transform = transforms.Compose([transforms.Scale(opt.imageSize),
-                                    transforms.CenterCrop(opt.imageSize),
-                                    transforms.ToTensor(),
-                                    transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+transform = transforms.Compose([transforms.Resize(opt.imageSize),
+                                transforms.CenterCrop(opt.imageSize),
+                                transforms.ToTensor(),
+                                transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
 dataset = dset.ImageFolder(root=opt.dataroot, transform=transform )
 assert dataset
 dataloader = torch.utils.data.DataLoader(dataset, batch_size=opt.batchSize,
