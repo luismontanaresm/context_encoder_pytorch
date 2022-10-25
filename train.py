@@ -187,7 +187,8 @@ if __name__ == '__main__':
 
             # train with real
             netD.zero_grad()
-            label.data.resize_(batch_size).fill_(real_label)
+            with torch.no_grad():
+                label.data.resize_(batch_size).fill_(real_label)
 
             output = netD(real_center)
             if len(label.shape) == 1:
